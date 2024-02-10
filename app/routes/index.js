@@ -63,7 +63,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const {id} = req.params;
-    const {data} = req.body;
+    const data = storedData.find((storedData) => storedData.id === req.params.id);
     res.status(200).json({ 
         message: 'DELETE to API with id',
         id,
