@@ -1,6 +1,6 @@
-# 1.4 Notes
+# 1.5 Coding Assignment
 
-## Let's Code NodeJS Notes
+## Finish project
 
-1. Installing and Using Express
-2. Install Dotenv
+1. Add POST, GET by ID, PUT By Id, DELETE By ID functionality.
+2. ***DON'T FORGET TO STORE - Implement in-memory data storage define an array or other data type.***
