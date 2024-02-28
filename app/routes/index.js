@@ -5,10 +5,10 @@ const storedData = [];
 
 //localhost:3000/api
 router.get('/', (req, res) => {
-    const {data} = storedData;
+    storedData;
     res.status(200).json({ 
         message: 'GET to API',
-        data,
+        data: storedData,
         metadata:{
             hostname: req.hostname,
             method: req.method
@@ -35,16 +35,37 @@ router.get('/:id', (req, res) => {
 //assignment work
 //POST, PUT By Id, DELETE By ID functionality.
 router.post('/', (req, res) => {
-    const {data} = req.body;
-    storedData.push(data);
-    res.status(200).json({ 
-        message: 'POST to API',
-        data: storedData,
-        metadata:{
-            hostname: req.hostname,
-            method: req.method
-        },
-    });
+    function generateRandomId(){
+        const crypto = require('node:crypto');
+        const uuid = crypto.randomUUID();
+        return uuid;
+    };
+    //try code block to create a new director with a success message
+    try{
+        const {data} = req.body;
+        const id = generateRandomId();
+        storedData.push({id: id, data: data});
+        //should return the data that was added with an id
+        res.status(200).json({ 
+            message: 'POST to API',
+            data: storedData[storedData.length - 1],
+            metadata:{
+                hostname: req.hostname,
+                method: req.method
+            },
+        });
+    }
+    //catch code block to handle errors
+    catch(error){
+        if (error.name === 'ValidationError') {
+            console.error('Error Validating!', error);
+            res.status(422).json(error);
+        }
+        else{
+            console.error(error);
+            res.status(500).json(error);
+        }
+    }
 });
 
 router.put('/:id', (req, res) => {
