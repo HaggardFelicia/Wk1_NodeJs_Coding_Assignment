@@ -21,10 +21,11 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const {id} = req.params;
     const data = storedData.find((storedData) => storedData.id === req.params.id);
-    console.log(id);
+    console.log(id, data);
     res.status(200).json({ 
         message: 'GET to API with id',
         id,
+        data,
         metadata:{
             hostname: req.hostname,
             method: req.method
